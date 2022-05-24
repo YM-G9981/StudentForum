@@ -2,7 +2,6 @@ package com.example.student_forum.dao;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.io.File;
@@ -14,9 +13,11 @@ import java.util.List;
 @Table(name = "post_label_collection")
 public class PostLabelCollection implements Serializable {
     @Id
-    @Column(name = "label_name")
+    @Column(name = "label_id")
+    private int labelId;
+    @Column(name = "label_title")
     @NotNull
-    private String labelName;
+    private String labelTitle;
     @OneToMany(mappedBy = "postId")
     private List<Post> posts;
     @Column(name  ="label_describe")

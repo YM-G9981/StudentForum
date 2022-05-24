@@ -14,11 +14,11 @@ public class Post implements Serializable {
     @Id
     @Column(name = "post_id")
     private String postId;
-    @Column(name = "post_name")
+    @Column(name = "post_title")
     @NotNull
-    private String postName;
+    private String postTitle;
     @ManyToOne
-    @JoinColumn(name = "post_label",referencedColumnName = "label_name")
+    @JoinColumn(name = "post_label",referencedColumnName = "label_id")
     private PostLabelCollection postLabel;
     @OneToMany(mappedBy = "commentId")
     private List<Comment> comments;

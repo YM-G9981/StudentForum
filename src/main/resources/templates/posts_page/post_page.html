@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--帖子主页 标题 发帖人 类型-->
+<div th:object="${post}">
+    <div th:text="*{PostTitle}"/>
+    <div th:text="*{PostLabel.LabelTitle}"/>
+    <div th:text="*{Content}"/>
+</div>
+<!--评论（评论人） 评论 回复（评论类）-->
+<!--评论页面-->
+<div>
+    <div th:each="comment:${comments}">
+        <div th:object="*{user}">
+            <img th:src="*{HeadSculpture.getPath()}" class="img-circle"/>
+            <div th:text="*{UserName}"/>
+        </div>
+        <div th:text="*{CommentContent}"/>
+        <div>
+            <!--点赞-->
+        </div>
+    </div>
+</div>
+        <!--评论-->
+<div>
+    </div>
+
+</body>
+</html>

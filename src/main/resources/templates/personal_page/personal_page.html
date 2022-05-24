@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.name}+'的个人主页'"></title>
+</head>
+<body>
+
+    <!--个人信息-->
+    <div th:object="${user}"  >
+        <span th:text="*{userName}"></span>
+        <span th:text="*{name}"></span>
+        <span> <img th:if="*{headSculpture!=null}" th:src="*{headSculpture.getPath()}" class="img-circle"/></span>
+    </div>
+    </div>
+    <!--帖子列表跳转-->
+    <div th:each="person_post:${myPosts}" th:fragment="myPosts">
+        <div th:object="*{person_post}">
+            <div th:text="*{PostTitle}"/>
+            <div th:text="*{PostLable.LableTitle}"/>
+            <div th:text="*{User.name}"/>
+            <div th:text="*{Content.subString(0,Integer.min(Content.length(),50))}"/>
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id ="myPostsPage">
+            </ul>
+        </nav>
+    </div>
+    <!--收藏的帖子-->
+    <div th:each="Person_post,Postindex:${favouritePosts}" th:fragment="favouritePosts">
+        <div th:object="*{Person_post}" >
+            <div th:text="*{PostTitle}"/>
+            <div th:text="*{PostLable.LableTitle}"/>
+            <div th:text="*{User.Name}"/>
+            <div th:text="*{Content.subString(0,Integer.min(Content.length(),50))}"/>
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id ="favouritePostsPage">
+            </ul>
+        </nav>
+    </div>
+    <!--点赞的帖子-->
+    <div>
+        <div th:each="person_post:${fabulousPosts}" th:fragment="fabulousPosts">
+            <div th:text="*{PostTitle}"/>
+            <div th:text="*{PostLable.LableTitle}"/>
+            <div th:text="*{User.Name}"/>
+            <div th:text="*{Content.subString(0,Integer.min(Content.length(),50))}"/>
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id ="fabulousPosts">
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <button th:onclick="newPostPage()">新建帖子</button>
+    </div>
+</body>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script th:inline="javascript">
+        var myPsotsPage= [[${user.myPsots.size()/10}]];
+        var favouritePostsPage = [[${user.favouritePosts.size()/10}]];
+        var fabulousPostsPage = [[${user.fabulousPosts.size()/10}]];
+        var username = [[${user.userName}]];
+    </script>
+<script th:src="@{/static/js/personal_page.js}" th:inline="javascript"></script>
+
+</html>
